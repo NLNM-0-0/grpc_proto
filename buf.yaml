@@ -1,0 +1,11 @@
+version: v2
+name: buf.build/nlnm-0-0/seminar
+deps:
+  - buf.build/googleapis/googleapis
+  - buf.build/grpc-ecosystem/grpc-gateway
+lint:
+  use:
+    - STANDARD
+breaking:
+  use:
+    - FILE
