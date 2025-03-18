@@ -5,9 +5,6 @@ package com.example.product;
 import "google/api/annotations.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 
-option go_package = "grpc_golang/gen/pb";
-
-// Định nghĩa tài liệu OpenAPI
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   info: {
     title: "Product Service API";
@@ -43,7 +40,6 @@ message GetProductResponse {
 }
 
 service ProductService {
-  // API tạo sản phẩm
   rpc PostProduct (PostProductRequest) returns (PostProductResponse) {
     option (google.api.http) = {
       post: "/v1/products"
@@ -51,7 +47,6 @@ service ProductService {
     };
   }
 
-  // API lấy sản phẩm theo ID
   rpc GetProduct (GetProductRequest) returns (GetProductResponse) {
     option (google.api.http) = {
       get: "/v1/products/{id}"
