@@ -1,20 +1,8 @@
 syntax = "proto3";
 
-package com.example.product;
+package seminar.product.v1;
 
 import "google/api/annotations.proto";
-import "protoc-gen-openapiv2/options/annotations.proto";
-
-option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
-  info: {
-    title: "Product Service API";
-    version: "1.0.0";
-    description: "API for managing products";
-  }
-  schemes: HTTP;
-  consumes: "application/json";
-  produces: "application/json";
-};
 
 message Product {
   string id = 1;
@@ -39,6 +27,14 @@ message GetProductResponse {
   Product product = 1;
 }
 
+message GetProductsByIdsRequest {
+  repeated string ids = 1;
+}
+
+message GetProductsByIdsResponse {
+  repeated Product products = 1;
+}
+
 service ProductService {
   rpc PostProduct (PostProductRequest) returns (PostProductResponse) {
     option (google.api.http) = {
@@ -50,6 +46,12 @@ service ProductService {
   rpc GetProduct (GetProductRequest) returns (GetProductResponse) {
     option (google.api.http) = {
       get: "/v1/products/{id}"
+    };
+  }
+
+  rpc GetProductByIds (GetProductsByIdsRequest) returns (GetProductsByIdsResponse) {
+    option (google.api.http) = {
+      get: "/v1/products"
     };
   }
 }
