@@ -32,7 +32,18 @@ message GetProductsByIdsRequest {
 }
 
 message GetProductsByIdsResponse {
-  repeated Product products = 1;
+  Product product = 1;
+}
+
+message RateProductByIdsRequest {
+  string id = 1;
+  uint64 score = 2;
+}
+
+message RateProductByIdsResponse {
+  string id = 1;
+  uint32 rated_count = 2;
+  double average_score = 3;
 }
 
 service ProductService {
@@ -49,9 +60,16 @@ service ProductService {
     };
   }
 
-  rpc GetProductByIds (GetProductsByIdsRequest) returns (GetProductsByIdsResponse) {
+  rpc GetProductByIds (GetProductsByIdsRequest) returns (stream GetProductsByIdsResponse) {
     option (google.api.http) = {
       get: "/v1/products"
+    };
+  }
+
+  rpc RateProductByIds (stream RateProductByIdsRequest) returns (stream RateProductByIdsResponse) {
+    option (google.api.http) = {
+      post : "/v1/products/rate"
+      body : "*"
     };
   }
 }
