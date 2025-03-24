@@ -3,7 +3,6 @@ syntax = "proto3";
 package seminar.order.v1;
 
 import "google/api/annotations.proto";
-import "seminar/product/v1/product.proto";
 
 message Order {
   message OrderProduct {
@@ -42,24 +41,10 @@ message GetOrderResponse {
   Order order = 1;
 }
 
-message RateOrderRequest {
-  repeated product.v1.RateProductByIdsRequest products = 1;
-}
-
-message RateOrderResponse {
-  repeated product.v1.RateProductByIdsResponse ratings = 1;
-}
-
 service OrderService {
   rpc PostOrder (PostOrderRequest) returns (PostOrderResponse) {
     option (google.api.http) = {
       post: "/v1/orders"
-      body: "*"
-    };
-  }
-  rpc RateOrder (RateOrderRequest) returns (RateOrderResponse) {
-    option (google.api.http) = {
-      post: "/v1/orders/rate"
       body: "*"
     };
   }
