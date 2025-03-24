@@ -43,7 +43,7 @@ message GetOrderResponse {
 }
 
 message RateOrderRequest {
-  repeated product.v1.RateProductByIdsRequest products = 2;
+  repeated product.v1.RateProductByIdsRequest products = 1;
 }
 
 message RateOrderResponse {
